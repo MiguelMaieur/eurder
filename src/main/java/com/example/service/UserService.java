@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,5 +32,7 @@ public class UserService {
         return userRepository.getAllUsers().stream().filter(c -> c.getUserInfo().getEmail().equals(user.getUserInfo().getEmail())).collect(Collectors.toList()).isEmpty();
     }
 
-
+    public boolean isUserInRoleAdmin(UUID id){
+        return userRepository.getAllUsers().stream().filter(c -> c.getId().equals(id)).collect(Collectors.toList()).size() == 1;
+    }
 }

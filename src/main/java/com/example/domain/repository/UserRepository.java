@@ -17,10 +17,11 @@ public class UserRepository {
 
     public UserRepository() {
         this.userList = new ArrayList<>();
+        innit();
     }
 
     private void innit(){
-        userList.add(new User(new Address("adminStreet", "15", "1000", "Brussel"),
+        userList.add(new User(UUID.fromString("2524ba8d-de3c-4a2f-a290-7ffc2713e250"),new Address("adminStreet", "15", "1000", "Brussel"),
                 new UserInfo("Admin", "Admin", "admin@eurder.be", "023658974"), List.of(Roles.USER,Roles.ADMIN)));
     }
 

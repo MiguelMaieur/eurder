@@ -1,6 +1,5 @@
 package com.example.domain.models.user;
 
-import javax.management.relation.Role;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -16,6 +15,13 @@ public class User {
         this.userInfo = userInfo;
         this.rolesList = rolesList;
         id = UUID.randomUUID();
+    }
+
+    public User(UUID id,Address address, UserInfo userInfo, List<Roles> rolesList) {
+        this.address = address;
+        this.userInfo = userInfo;
+        this.rolesList = rolesList;
+        this.id = id;
     }
 
     public UUID getId() {
