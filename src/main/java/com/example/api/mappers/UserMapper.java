@@ -3,16 +3,19 @@ package com.example.api.mappers;
 import com.example.api.dto.User.CreateUserDTO;
 import com.example.api.dto.User.UserDTO;
 import com.example.domain.models.user.Address;
+import com.example.domain.models.user.Roles;
 import com.example.domain.models.user.User;
 import com.example.domain.models.user.UserInfo;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class UserMapper {
 
     public User CreateUserDTOTOUser(CreateUserDTO createUserDTO){
         return new User(new Address(createUserDTO.getStreet(), createUserDTO.getStreetNumber(), createUserDTO.getPostalCode(), createUserDTO.getCity()),
-                new UserInfo(createUserDTO.getFirstName(), createUserDTO.getLastName(), createUserDTO.getEmail(), createUserDTO.getPhoneNumber()));
+                new UserInfo(createUserDTO.getFirstName(), createUserDTO.getLastName(), createUserDTO.getEmail(), createUserDTO.getPhoneNumber()), List.of(Roles.USER));
     }
 
     public UserDTO UserToUserDTO(User user){

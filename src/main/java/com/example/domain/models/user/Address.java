@@ -1,6 +1,6 @@
 package com.example.domain.models.user;
 
-import com.example.infrastructure.exceptions.UserFieldNotValid;
+import com.example.infrastructure.exceptions.UserFieldNotValidException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +21,7 @@ public class Address {
     private String validator(String value,String field){
         if(value == null || value.isBlank()){
             logger.warn("The field " + field + " was not valid.");
-            throw new UserFieldNotValid(field + " was not a valid.");
+            throw new UserFieldNotValidException(field + " was not valid.");
         }
         return value;
     }
