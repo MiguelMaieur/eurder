@@ -39,4 +39,9 @@ public class ControllerExceptions extends ResponseEntityExceptionHandler {
     public void ItemFieldNotValidException(ItemFieldNotValidException itemFieldNotValidException, HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, itemFieldNotValidException.getMessage());
     }
+
+    @ExceptionHandler(OrderMissingField.class)
+    public void OrderMissingField(OrderMissingField orderMissingField, HttpServletResponse httpServletResponse) throws IOException {
+        httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, orderMissingField.getMessage());
+    }
 }

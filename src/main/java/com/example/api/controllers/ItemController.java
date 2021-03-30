@@ -4,14 +4,12 @@ import com.example.api.dto.item.CreateItemDTO;
 import com.example.api.dto.item.ItemDTO;
 import com.example.api.mappers.ItemMapper;
 import com.example.infrastructure.exceptions.Unauthorized;
-import com.example.infrastructure.exceptions.UserAlreadyExitsException;
 import com.example.service.ItemService;
 import com.example.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Collection;
 import java.util.UUID;

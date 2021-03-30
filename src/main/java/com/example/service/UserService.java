@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.domain.models.user.Roles;
 import com.example.domain.models.user.User;
 import com.example.domain.repository.UserRepository;
 import com.example.infrastructure.exceptions.UserAlreadyExitsException;
@@ -33,6 +34,14 @@ public class UserService {
     }
 
     public boolean isUserInRoleAdmin(UUID id){
-        return userRepository.getAllUsers().stream().filter(c -> c.getId().equals(id)).collect(Collectors.toList()).size() == 1;
+        return userRepository.getAllUsers().stream().filter(c -> c.getId().equals(id) && c.getRoles().contains(Roles.ADMIN)).count() == 1;
+    }
+
+    public boolean isUserInRoleUser(UUID id){
+        return userRepository.getAllUsers().stream().filter(c -> c.getId().equals(id) && c.getRoles().contains(Roles.USER)).count() == 1;
+    }
+
+    public User getUserById(UUID id){
+        return userRepository.getAllUsers().stream().filter(c -> c.getId().equals(id)).findFirst().orElse(null);
     }
 }
