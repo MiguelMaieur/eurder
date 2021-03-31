@@ -77,4 +77,18 @@ public class OrderService {
     public Map<UUID, List<OrderedItem>> getOrderHistory(UUID userId){
         return orderRepository.getAllOrders().stream().filter(c -> c.getMemberId().equals(userId)).collect(groupingBy(OrderedItem::getGroupId));
     }
+
+    public UUID reOrder(UUID groupId,UUID userId){
+        if(!isReOrderIdOk(groupId,userId)){
+            logger.warn("A user did try to reorder a order that was not in the database. groupid: " + groupId);
+            throw new OrderMissingField("There was nothing found to reorder, pls try again.");
+        }
+        var oldOrder = getOrdersByGroupId(groupId);
+        var oldOrderMaped = oldOrder.stream().map(c -> new OrderItemDTO().setId(c.getItemId()).setAmount(c.getAmount()).setShippingdate(c.getShippingDate())).collect(Collectors.toList());
+        return saveOrders(oldOrderMaped,userId);
+    }
+
+    private boolean isReOrderIdOk(UUID groupId,UUID userId){
+        return orderRepository.getAllOrders().stream().filter(c -> c.getGroupId().equals(groupId) && c.getMemberId().equals(userId)).count() > 0;
+    }
 }

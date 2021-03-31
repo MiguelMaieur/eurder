@@ -55,4 +55,8 @@ public class OrderMapper {
                 ,user.getAddress().getStreet() + " " + user.getAddress().getStreetNumber()
                 ,user.getAddress().getPostalCode(),user.getAddress().getCity());
     }
+
+    public ReOrderDTO uuidToReOrderDTO(UUID reorderId){
+        return new ReOrderDTO().setOrderId(reorderId);
+    }
 }
