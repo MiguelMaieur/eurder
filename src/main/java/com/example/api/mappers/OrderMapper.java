@@ -1,8 +1,6 @@
 package com.example.api.mappers;
 
-import com.example.api.dto.order.DeliveryAddress;
-import com.example.api.dto.order.OrderItemDTO;
-import com.example.api.dto.order.OrderedItemsDTO;
+import com.example.api.dto.order.*;
 import com.example.domain.models.order.OrderedItem;
 import com.example.domain.models.user.User;
 import com.example.service.OrderService;
@@ -10,6 +8,8 @@ import com.example.service.UserService;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -31,6 +31,15 @@ public class OrderMapper {
                 .setdeliveryAddress(getAddress(userService.getUserById(userId)))
                 .setItemList(getItemslist(orderList))
                 .setTotalPrice(getTotalPrice(orderList));
+    }
+
+    public HistoryReportDTO mapToHistoryReportDTO(Map<UUID, List<OrderedItem>> orderHistory){
+        var result = new HistoryReportDTO();
+        for (var order : orderHistory.entrySet()){
+            result.addHistory(new HistoryReport().setRow(order))//mappen naar new object met minder velden
+            .setTotalOrdersPrice(order.getValue().stream().mapToDouble(OrderedItem::getTotalAmount).sum());
+        }
+        return result;
     }
 
     private Double getTotalPrice(Collection<OrderedItem> orderList) {

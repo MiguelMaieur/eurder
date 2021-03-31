@@ -1,5 +1,6 @@
 package com.example.api.controllers;
 
+import com.example.api.dto.order.HistoryReportDTO;
 import com.example.api.dto.order.OrderItemDTOWrapper;
 import com.example.api.dto.order.OrderedItemsDTO;
 import com.example.api.mappers.OrderMapper;
@@ -36,5 +37,15 @@ public class OrderController {
             throw new Unauthorized("You are not authorized to order a item.");
         }
         return orderMapper.itemsToOrderedItemsDTO(orderService.saveOrders(wrapper.getItems(), userid), userid);
+    }
+
+    @GetMapping(produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public HistoryReportDTO getReportOfOrders(@RequestHeader("Authorization") UUID userid){
+        if (!userService.isUserInRoleUser(userid)) {
+            logger.warn("Someone tried to see the orders of a member without a valid memberId; id used : " + userid);
+            throw new Unauthorized("You are not authorized see the order history.");
+        }
+        return orderMapper.mapToHistoryReportDTO(orderService.getOrderHistory(userid));
     }
 }

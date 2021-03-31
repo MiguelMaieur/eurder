@@ -11,8 +11,12 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @Service
 public class OrderService {
@@ -68,5 +72,9 @@ public class OrderService {
 
     private boolean areItemsOk(Collection<OrderItemDTO> orderList){
         return orderList.stream().filter(c -> c.getId() == null || c.getAmount() < 1).count() == 0;
+    }
+
+    public Map<UUID, List<OrderedItem>> getOrderHistory(UUID userId){
+        return orderRepository.getAllOrders().stream().filter(c -> c.getMemberId().equals(userId)).collect(groupingBy(OrderedItem::getGroupId));
     }
 }
