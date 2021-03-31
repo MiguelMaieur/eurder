@@ -41,4 +41,14 @@ public class UserController {
         }
         return userMapper.userListToUserDTOList(userService.getAllUsers());
     }
+
+    @GetMapping(path = "/{userId}",produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public UserDTO getUserById(@PathVariable UUID userId,@RequestHeader("Authorization") UUID adminId){
+        if(!userService.isUserInRoleAdmin(adminId)){
+            logger.warn("Someone tried to view a members without an admin id. id used : " + adminId + " ,id asked " + userId);
+            throw new Unauthorized("You are not authorized to see this info.");
+        }
+        return userMapper.UserToUserDTO(userService.getUserById(userId));
+    }
 }

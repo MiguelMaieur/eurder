@@ -49,4 +49,6 @@ public class UserService {
     public Collection<User> getAllUsers(){
         return userRepository.getAllUsers().stream().filter(c -> c.getRoles().size() == 1 && c.getRoles().contains(Roles.USER)).collect(Collectors.toList());
     }
+
+
 }
