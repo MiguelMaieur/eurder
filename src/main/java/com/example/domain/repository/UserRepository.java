@@ -23,6 +23,9 @@ public class UserRepository {
     private void innit(){
         userList.add(new User(UUID.fromString("2524ba8d-de3c-4a2f-a290-7ffc2713e250"),new Address("adminStreet", "15", "1000", "Brussel"),
                 new UserInfo("Admin", "Admin", "admin@eurder.be", "023658974"), List.of(Roles.USER,Roles.ADMIN)));
+
+        userList.add(new User(UUID.fromString("5188190a-e994-40bb-a637-0140851f9728"),new Address("Oude ieperseweg", "18", "8501", "Heule"),
+                new UserInfo("Miguel", "Maieur", "miguel@hotmail.be", "0493125698"), List.of(Roles.USER)));
     }
 
     public Collection<User> getAllUsers(){

@@ -30,7 +30,7 @@ public class UserService {
     }
 
     private boolean checkIfUserIsDuplicate(User user) {
-        return userRepository.getAllUsers().stream().filter(c -> c.getUserInfo().getEmail().equals(user.getUserInfo().getEmail())).collect(Collectors.toList()).isEmpty();
+        return userRepository.getAllUsers().stream().filter(c -> c.getUserInfo().getEmail().toLowerCase().equals(user.getUserInfo().getEmail().toLowerCase())).collect(Collectors.toList()).isEmpty();
     }
 
     public boolean isUserInRoleAdmin(UUID id){

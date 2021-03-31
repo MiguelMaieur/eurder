@@ -1,8 +1,10 @@
 package com.example.api.mappers;
 
+import com.example.api.dto.item.DeliveryAddress;
 import com.example.api.dto.item.OrderItemDTO;
 import com.example.api.dto.item.OrderedItemsDTO;
 import com.example.domain.models.order.OrderedItem;
+import com.example.domain.models.user.User;
 import com.example.service.OrderService;
 import com.example.service.UserService;
 import org.springframework.stereotype.Component;
@@ -25,10 +27,10 @@ public class OrderMapper {
     public OrderedItemsDTO itemsToOrderedItemsDTO(UUID groupId, UUID userId) {
         var orderList = orderService.getOrdersByGroupId(groupId);
 
-        return new OrderedItemsDTO().setUser(userService.getUserById(userId))
+        return new OrderedItemsDTO().setOrderId(groupId)
+                .setdeliveryAddress(getAddress(userService.getUserById(userId)))
                 .setItemList(getItemslist(orderList))
-                .setTotalPrice(getTotalPrice(orderList))
-                .setGroupId(groupId);
+                .setTotalPrice(getTotalPrice(orderList));
     }
 
     private Double getTotalPrice(Collection<OrderedItem> orderList) {
@@ -37,5 +39,11 @@ public class OrderMapper {
 
     private Collection<OrderItemDTO> getItemslist(Collection<OrderedItem> orderList) {
         return orderList.stream().map(c -> new OrderItemDTO().setId(c.getItemId()).setAmount(c.getAmount()).setShippingdate(c.getShippingDate())).collect(Collectors.toList());
+    }
+
+    private DeliveryAddress getAddress(User user){
+        return new DeliveryAddress(user.getUserInfo().getFirstName() + " " + user.getUserInfo().getLastName()
+                ,user.getAddress().getStreet() + " " + user.getAddress().getStreetNumber()
+                ,user.getAddress().getPostalCode(),user.getAddress().getCity());
     }
 }

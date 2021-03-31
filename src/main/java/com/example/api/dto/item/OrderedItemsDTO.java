@@ -1,19 +1,21 @@
 package com.example.api.dto.item;
 
-import com.example.domain.models.user.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.UUID;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({ "orderid", "orderDate" })
 public class OrderedItemsDTO {
+    private UUID orderid;
+    private final LocalDate orderDate;
+    @JsonPropertyOrder({"fullName", "Street","postalCode","city"})
+    private DeliveryAddress deliveryAddress;
     private Collection<OrderItemDTO> itemList;
     private Double totalPrice;
-    private User user;
-    private LocalDate orderDate;
-    private UUID groupId;
 
     public OrderedItemsDTO() {
         orderDate = LocalDate.now();
@@ -27,12 +29,12 @@ public class OrderedItemsDTO {
         return totalPrice;
     }
 
-    public User getUser() {
-        return user;
+    public DeliveryAddress getDeliveryAddress() {
+        return deliveryAddress;
     }
 
-    public UUID getGroupId() {
-        return groupId;
+    public UUID getOrderId() {
+        return orderid;
     }
 
     public LocalDate getOrderDate() {
@@ -49,13 +51,13 @@ public class OrderedItemsDTO {
         return this;
     }
 
-    public OrderedItemsDTO setUser(User user) {
-        this.user = user;
+    public OrderedItemsDTO setdeliveryAddress(DeliveryAddress address) {
+        this.deliveryAddress = address;
         return this;
     }
 
-    public OrderedItemsDTO setGroupId(UUID groupId) {
-        this.groupId = groupId;
+    public OrderedItemsDTO setOrderId(UUID orderId) {
+        this.orderid = orderId;
         return this;
     }
 }

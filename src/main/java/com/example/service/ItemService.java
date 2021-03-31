@@ -37,7 +37,7 @@ public class ItemService {
         return itemRepository.getAllItems();
     }
 
-    public Item getItembyId(UUID id) {
+    public Item getItemById(UUID id) {
         return itemRepository.getAllItems().stream().filter(c -> c.getId().equals(id)).findFirst().orElse(null);
     }
 }

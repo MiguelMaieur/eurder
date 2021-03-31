@@ -4,7 +4,6 @@ import com.example.api.dto.item.OrderItemDTO;
 import com.example.domain.models.item.Item;
 import com.example.domain.models.order.OrderedItem;
 import com.example.domain.repository.OrderRepository;
-import com.example.infrastructure.exceptions.ItemAlreadyExitsException;
 import com.example.infrastructure.exceptions.OrderMissingField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,8 +31,7 @@ public class OrderService {
 
         UUID groupId = UUID.randomUUID();
         for (var orderedItem : orderList) {
-            Item item = itemService.getItembyId(orderedItem.getId());
-            orderRepository.addOrder(makeOrderedItem(userid, groupId, orderedItem, item));
+            orderRepository.addOrder(makeOrderedItem(userid, groupId, orderedItem, itemService.getItemById(orderedItem.getId())));
         }
         return groupId;
     }
@@ -49,7 +47,7 @@ public class OrderService {
         }
 
         if(!areItemsKnow(orderList)){
-            logger.warn("A user did try to order a item thatwas not in the database. userid: " + userid);
+            logger.warn("A user did try to order a item that was not in the database. userid: " + userid);
             throw new OrderMissingField("There was a item id that is not known.");
         }
     }
@@ -67,8 +65,6 @@ public class OrderService {
                 , item.getAmount() >= 1 ? LocalDate.now().plusDays(1) : LocalDate.now().plusDays(7)
                 , order.getAmount() * item.getPrice());
     }
-
-
 
     private boolean areItemsOk(Collection<OrderItemDTO> orderList){
         return orderList.stream().filter(c -> c.getId() == null || c.getAmount() < 1).count() == 0;
