@@ -1,8 +1,8 @@
 package com.example.api.mappers;
 
-import com.example.api.dto.item.DeliveryAddress;
-import com.example.api.dto.item.OrderItemDTO;
-import com.example.api.dto.item.OrderedItemsDTO;
+import com.example.api.dto.order.DeliveryAddress;
+import com.example.api.dto.order.OrderItemDTO;
+import com.example.api.dto.order.OrderedItemsDTO;
 import com.example.domain.models.order.OrderedItem;
 import com.example.domain.models.user.User;
 import com.example.service.OrderService;

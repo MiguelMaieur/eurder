@@ -1,6 +1,6 @@
 package com.example.service;
 
-import com.example.api.dto.item.OrderItemDTO;
+import com.example.api.dto.order.OrderItemDTO;
 import com.example.domain.models.item.Item;
 import com.example.domain.models.order.OrderedItem;
 import com.example.domain.repository.OrderRepository;
@@ -63,7 +63,7 @@ public class OrderService {
     private OrderedItem makeOrderedItem(UUID userid, UUID groupId, OrderItemDTO order, Item item) {
         return new OrderedItem(UUID.randomUUID(), groupId, userid, order.getId(), order.getAmount()
                 , item.getAmount() >= 1 ? LocalDate.now().plusDays(1) : LocalDate.now().plusDays(7)
-                , order.getAmount() * item.getPrice());
+                , order.getAmount() * item.getPrice(),LocalDate.now());
     }
 
     private boolean areItemsOk(Collection<OrderItemDTO> orderList){

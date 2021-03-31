@@ -1,4 +1,4 @@
-package com.example.api.dto.item;
+package com.example.api.dto.order;
 
 public class DeliveryAddress {
     private final String fullName;

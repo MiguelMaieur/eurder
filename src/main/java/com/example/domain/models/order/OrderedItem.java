@@ -11,8 +11,9 @@ public class OrderedItem {
     private final int amount;
     private final LocalDate shippingDate;
     private final Double totalAmount;
+    private final LocalDate orderDate;
 
-    public OrderedItem(UUID orderId, UUID groupId, UUID memberId, UUID itemId, int amount, LocalDate shippingDate, Double totalAmount) {
+    public OrderedItem(UUID orderId, UUID groupId, UUID memberId, UUID itemId, int amount, LocalDate shippingDate, Double totalAmount,LocalDate orderDate) {
         this.orderId = orderId;
         this.groupId = groupId;
         this.memberId = memberId;
@@ -20,6 +21,8 @@ public class OrderedItem {
         this.amount = amount;
         this.shippingDate = shippingDate;
         this.totalAmount = totalAmount;
+        this.orderDate = orderDate;
+
     }
 
     public UUID getOrderId() {
@@ -48,5 +51,9 @@ public class OrderedItem {
 
     public Double getTotalAmount() {
         return totalAmount;
+    }
+
+    public LocalDate getOrderDate() {
+        return orderDate;
     }
 }

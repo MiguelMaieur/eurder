@@ -22,6 +22,14 @@ public class Item {
         this.amount = validatorAmount(amount);
     }
 
+    public Item(UUID id,String name, String description, Double price, int amount) {
+        this.id = id;
+        this.name = validator(name, "name");
+        this.description = validator(description, "description");
+        this.price = validatorPrice(price);
+        this.amount = validatorAmount(amount);
+    }
+
     private String validator(String value, String field) {
         if (value == null || value.isBlank()) {
             logger.warn("The field " + field + " was not valid. value : " + value);

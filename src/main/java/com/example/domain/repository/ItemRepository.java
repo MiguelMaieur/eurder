@@ -5,10 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class ItemRepository {
@@ -17,6 +14,11 @@ public class ItemRepository {
 
     public ItemRepository() {
         this.itemList = new ArrayList<>();
+        innit();
+    }
+
+    private void innit() {
+        itemList.add(new Item(UUID.fromString("0852a3b6-0a61-4487-9a2a-f47f0a1af0f8"),"item99","item",15.5,5));
     }
 
     public Collection<Item> getAllItems(){

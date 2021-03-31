@@ -1,7 +1,7 @@
 package com.example.api.controllers;
 
-import com.example.api.dto.item.OrderItemDTOWrapper;
-import com.example.api.dto.item.OrderedItemsDTO;
+import com.example.api.dto.order.OrderItemDTOWrapper;
+import com.example.api.dto.order.OrderedItemsDTO;
 import com.example.api.mappers.OrderMapper;
 import com.example.infrastructure.exceptions.Unauthorized;
 import com.example.service.OrderService;

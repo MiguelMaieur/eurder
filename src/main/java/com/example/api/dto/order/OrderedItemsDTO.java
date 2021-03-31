@@ -1,4 +1,4 @@
-package com.example.api.dto.item;
+package com.example.api.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
