@@ -83,8 +83,8 @@ public class OrderService {
             logger.warn("A user did try to reorder a order that was not in the database. groupid: " + groupId);
             throw new OrderMissingField("There was nothing found to reorder, pls try again.");
         }
-        var oldOrder = getOrdersByGroupId(groupId);
-        var oldOrderMaped = oldOrder.stream().map(c -> new OrderItemDTO().setId(c.getItemId()).setAmount(c.getAmount()).setShippingdate(c.getShippingDate())).collect(Collectors.toList());
+        var oldOrderMaped = getOrdersByGroupId(groupId).stream()
+                .map(c -> new OrderItemDTO().setId(c.getItemId()).setAmount(c.getAmount()).setShippingdate(c.getShippingDate())).collect(Collectors.toList());
         return saveOrders(oldOrderMaped, userId);
     }
 
