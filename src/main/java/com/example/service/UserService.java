@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -43,5 +44,9 @@ public class UserService {
 
     public User getUserById(UUID id){
         return userRepository.getAllUsers().stream().filter(c -> c.getId().equals(id)).findFirst().orElse(null);
+    }
+
+    public Collection<User> getAllUsers(){
+        return userRepository.getAllUsers().stream().filter(c -> c.getRoles().size() == 1 && c.getRoles().contains(Roles.USER)).collect(Collectors.toList());
     }
 }
