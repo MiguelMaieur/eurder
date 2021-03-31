@@ -13,14 +13,14 @@ public class UserInfo {
     private final String phoneNumber;
 
     public UserInfo(String firstName, String lastName, String email, String phoneNumber) {
-        this.firstName = validator(firstName,"firstname");
-        this.lastName = validator(lastName,"lastname");
-        this.email = validator(email,"email");
-        this.phoneNumber = validator(phoneNumber,"phonenumber");
+        this.firstName = validator(firstName, "firstname");
+        this.lastName = validator(lastName, "lastname");
+        this.email = validator(email, "email");
+        this.phoneNumber = validator(phoneNumber, "phonenumber");
     }
 
-    private String validator(String value,String field){
-        if(value == null || value.isBlank()){
+    private String validator(String value, String field) {
+        if (value == null || value.isBlank()) {
             logger.warn("The field " + field + " was not valid.");
             throw new UserFieldNotValidException(field + " was not valid.");
         }

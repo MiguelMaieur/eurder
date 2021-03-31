@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 @Component
 public class UserMapper {
 
-    public User CreateUserDTOTOUser(CreateUserDTO createUserDTO){
+    public User CreateUserDTOTOUser(CreateUserDTO createUserDTO) {
         return new User(new Address(createUserDTO.getStreet(), createUserDTO.getStreetNumber(), createUserDTO.getPostalCode(), createUserDTO.getCity()),
                 new UserInfo(createUserDTO.getFirstName(), createUserDTO.getLastName(), createUserDTO.getEmail(), createUserDTO.getPhoneNumber()), List.of(Roles.USER));
     }
 
-    public UserDTO UserToUserDTO(User user){
+    public UserDTO UserToUserDTO(User user) {
         return new UserDTO().setCity(user.getAddress().getCity())
                 .setEmail(user.getUserInfo().getEmail())
                 .setFirstName(user.getUserInfo().getFirstName())
@@ -33,7 +33,7 @@ public class UserMapper {
                 .setStreetNumber(user.getAddress().getStreetNumber());
     }
 
-    public List<UserDTO> userListToUserDTOList(Collection<User> users){
+    public List<UserDTO> userListToUserDTOList(Collection<User> users) {
         return users.stream().map(this::UserToUserDTO).collect(Collectors.toList());
     }
 }

@@ -17,7 +17,7 @@ public class ItemMapper {
         return new Item(createItemDTO.getName(), createItemDTO.getDescription(), createItemDTO.getPrice(), createItemDTO.getAmount());
     }
 
-    public ItemDTO itemToItemDTO(Item item){
+    public ItemDTO itemToItemDTO(Item item) {
         return new ItemDTO().setId(item.getId())
                 .setAmount(item.getAmount())
                 .setDescription(item.getDescription())
@@ -25,7 +25,7 @@ public class ItemMapper {
                 .setPrice(item.getPrice());
     }
 
-    public Collection<ItemDTO> itemListToItemDTOList(Collection<Item> items){
+    public Collection<ItemDTO> itemListToItemDTOList(Collection<Item> items) {
         return items.stream().map(c -> new ItemDTO().setId(c.getId())
                 .setAmount(c.getAmount())
                 .setDescription(c.getDescription())
@@ -33,7 +33,7 @@ public class ItemMapper {
                 .setPrice(c.getPrice())).collect(Collectors.toList());
     }
 
-    public Item updateItemDTOToItem(UpdateItemDTO updateItemDTO){
+    public Item updateItemDTOToItem(UpdateItemDTO updateItemDTO) {
         return new Item(UUID.fromString("00000000-0000-0000-0000-000000000000"), updateItemDTO.getName(),
                 updateItemDTO.getDescription(), updateItemDTO.getPrice(), updateItemDTO.getAmount());
     }

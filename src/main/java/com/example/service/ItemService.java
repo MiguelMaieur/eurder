@@ -42,7 +42,7 @@ public class ItemService {
         return itemRepository.getAllItems().stream().filter(c -> c.getId().equals(id)).findFirst().orElse(null);
     }
 
-    public Item UpdateItem(Item item){
+    public Item UpdateItem(Item item) {
         if (checkIfItemIsDuplicate(item)) {
             logger.warn("A admin tried to update a item that is not in the database : " + item.getName());
             throw new ItemDontExists("There is no item with the name " + item.getName());

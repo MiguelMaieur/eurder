@@ -22,7 +22,7 @@ public class Item {
         this.amount = validatorAmount(amount);
     }
 
-    public Item(UUID id,String name, String description, Double price, int amount) {
+    public Item(UUID id, String name, String description, Double price, int amount) {
         this.id = id;
         this.name = validator(name, "name");
         this.description = validator(description, "description");

@@ -8,11 +8,11 @@ import java.util.Collection;
 import java.util.UUID;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "orderid", "orderDate" })
+@JsonPropertyOrder({"orderid", "orderDate"})
 public class OrderedItemsDTO {
     private UUID orderid;
     private final LocalDate orderDate;
-    @JsonPropertyOrder({"fullName", "Street","postalCode","city"})
+    @JsonPropertyOrder({"fullName", "Street", "postalCode", "city"})
     private DeliveryAddress deliveryAddress;
     private Collection<OrderItemDTO> itemList;
     private Double totalPrice;

@@ -18,12 +18,12 @@ public class OrderRepository {
         itemList = new ArrayList<>();
     }
 
-    public OrderedItem addOrder(OrderedItem order){
+    public OrderedItem addOrder(OrderedItem order) {
         itemList.add(order);
         return order;
     }
 
-    public List<OrderedItem> getAllOrders(){
+    public List<OrderedItem> getAllOrders() {
         return itemList;
     }
 }

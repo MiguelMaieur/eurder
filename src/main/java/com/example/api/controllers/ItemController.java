@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.UUID;
 
 @RestController
-@RequestMapping( "/item")
+@RequestMapping("/item")
 public class ItemController {
     private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
 
@@ -30,10 +30,10 @@ public class ItemController {
         this.itemMapper = itemMapper;
     }
 
-    @PostMapping(consumes = "application/json",produces = "application/json")
+    @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public ItemDTO addItem(@RequestBody CreateItemDTO createUserDTO,@RequestHeader("Authorization") UUID adminId){
-        if(!userService.isUserInRoleAdmin(adminId)){
+    public ItemDTO addItem(@RequestBody CreateItemDTO createUserDTO, @RequestHeader("Authorization") UUID adminId) {
+        if (!userService.isUserInRoleAdmin(adminId)) {
             logger.warn("Someone tried to register an item but did not have admin id; id used : " + adminId);
             throw new Unauthorized("You are not authorized to add a item.");
         }
@@ -42,14 +42,14 @@ public class ItemController {
 
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public Collection<ItemDTO> getAllItems(){
+    public Collection<ItemDTO> getAllItems() {
         return itemMapper.itemListToItemDTOList(itemService.getAllItems());
     }
 
-    @PatchMapping(consumes = "application/json",produces = "application/json")
+    @PatchMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public ItemDTO updateItem(@RequestBody UpdateItemDTO updateItemDTO, @RequestHeader("Authorization") UUID adminId){
-        if(!userService.isUserInRoleAdmin(adminId)){
+    public ItemDTO updateItem(@RequestBody UpdateItemDTO updateItemDTO, @RequestHeader("Authorization") UUID adminId) {
+        if (!userService.isUserInRoleAdmin(adminId)) {
             logger.warn("Someone tried to update an item but did not have a admin id; id used : " + adminId);
             throw new Unauthorized("You are not authorized to update a item.");
         }

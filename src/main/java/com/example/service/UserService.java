@@ -22,8 +22,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User addUser(User user){
-        if(!checkIfUserIsDuplicate(user)){
+    public User addUser(User user) {
+        if (!checkIfUserIsDuplicate(user)) {
             logger.warn("A user tried to register a email that is already in the database : " + user.getUserInfo().getEmail());
             throw new UserAlreadyExitsException("This email is already registered");
         }
@@ -34,19 +34,19 @@ public class UserService {
         return userRepository.getAllUsers().stream().filter(c -> c.getUserInfo().getEmail().toLowerCase().equals(user.getUserInfo().getEmail().toLowerCase())).collect(Collectors.toList()).isEmpty();
     }
 
-    public boolean isUserInRoleAdmin(UUID id){
+    public boolean isUserInRoleAdmin(UUID id) {
         return userRepository.getAllUsers().stream().filter(c -> c.getId().equals(id) && c.getRoles().contains(Roles.ADMIN)).count() == 1;
     }
 
-    public boolean isUserInRoleUser(UUID id){
+    public boolean isUserInRoleUser(UUID id) {
         return userRepository.getAllUsers().stream().filter(c -> c.getId().equals(id) && c.getRoles().contains(Roles.USER)).count() == 1;
     }
 
-    public User getUserById(UUID id){
+    public User getUserById(UUID id) {
         return userRepository.getAllUsers().stream().filter(c -> c.getId().equals(id)).findFirst().orElse(null);
     }
 
-    public Collection<User> getAllUsers(){
+    public Collection<User> getAllUsers() {
         return userRepository.getAllUsers().stream().filter(c -> c.getRoles().size() == 1 && c.getRoles().contains(Roles.USER)).collect(Collectors.toList());
     }
 

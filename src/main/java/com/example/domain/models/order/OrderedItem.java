@@ -13,7 +13,7 @@ public class OrderedItem {
     private final Double totalAmount;
     private final LocalDate orderDate;
 
-    public OrderedItem(UUID orderId, UUID groupId, UUID memberId, UUID itemId, int amount, LocalDate shippingDate, Double totalAmount,LocalDate orderDate) {
+    public OrderedItem(UUID orderId, UUID groupId, UUID memberId, UUID itemId, int amount, LocalDate shippingDate, Double totalAmount, LocalDate orderDate) {
         this.orderId = orderId;
         this.groupId = groupId;
         this.memberId = memberId;

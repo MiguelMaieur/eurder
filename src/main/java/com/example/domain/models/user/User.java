@@ -17,7 +17,7 @@ public class User {
         id = UUID.randomUUID();
     }
 
-    public User(UUID id,Address address, UserInfo userInfo, List<Roles> rolesList) {
+    public User(UUID id, Address address, UserInfo userInfo, List<Roles> rolesList) {
         this.address = address;
         this.userInfo = userInfo;
         this.rolesList = rolesList;
@@ -36,7 +36,7 @@ public class User {
         return userInfo;
     }
 
-    public Collection<Roles> getRoles(){
+    public Collection<Roles> getRoles() {
         return rolesList;
     }
 }

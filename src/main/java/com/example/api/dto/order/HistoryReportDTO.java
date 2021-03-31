@@ -20,7 +20,7 @@ public class HistoryReportDTO {
         return totalOrdersPrice;
     }
 
-    public HistoryReportDTO addHistory(HistoryReport historyReport){
+    public HistoryReportDTO addHistory(HistoryReport historyReport) {
         this.historyReport.add(historyReport);
         return this;
     }

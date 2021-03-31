@@ -18,20 +18,20 @@ public class ItemRepository {
     }
 
     private void innit() {
-        itemList.add(new Item(UUID.fromString("0852a3b6-0a61-4487-9a2a-f47f0a1af0f8"),"item99","item",15.5,5));
+        itemList.add(new Item(UUID.fromString("0852a3b6-0a61-4487-9a2a-f47f0a1af0f8"), "item99", "item", 15.5, 5));
     }
 
-    public Collection<Item> getAllItems(){
+    public Collection<Item> getAllItems() {
         return Collections.unmodifiableCollection(itemList);
     }
 
-    public Item addItem(Item item){
+    public Item addItem(Item item) {
         itemList.add(item);
         logger.info("Item was added to the database with id :" + item.getId());
         return item;
     }
 
-    public Item UpDateItem(Item item){
+    public Item UpDateItem(Item item) {
         Item itemToUpdate = itemList.stream().filter(c -> c.getName().equals(item.getName())).findFirst().orElse(null);
         itemToUpdate.setDescription(item.getDescription());
         itemToUpdate.setAmount(item.getAmount());

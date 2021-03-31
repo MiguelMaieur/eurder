@@ -40,25 +40,25 @@ public class OrderService {
         return groupId;
     }
 
-    public Collection<OrderedItem> getOrdersByGroupId(UUID id){
+    public Collection<OrderedItem> getOrdersByGroupId(UUID id) {
         return orderRepository.getAllOrders().stream().filter(c -> c.getGroupId().equals(id)).collect(Collectors.toList());
     }
 
     private void CheckInput(Collection<OrderItemDTO> orderList, UUID userid) {
-        if(!areItemsOk(orderList)){
+        if (!areItemsOk(orderList)) {
             logger.warn("A user did try to order a item and not all fields where filled in userid: " + userid);
             throw new OrderMissingField("There was a field missing in your order.");
         }
 
-        if(!areItemsKnow(orderList)){
+        if (!areItemsKnow(orderList)) {
             logger.warn("A user did try to order a item that was not in the database. userid: " + userid);
             throw new OrderMissingField("There was a item id that is not known.");
         }
     }
 
     private boolean areItemsKnow(Collection<OrderItemDTO> orderList) {
-        for (var item : orderList){
-            if(itemService.getAllItems().stream().filter(c -> c.getId().equals(item.getId())).findFirst().isEmpty())
+        for (var item : orderList) {
+            if (itemService.getAllItems().stream().filter(c -> c.getId().equals(item.getId())).findFirst().isEmpty())
                 return false;
         }
         return true;
@@ -67,28 +67,28 @@ public class OrderService {
     private OrderedItem makeOrderedItem(UUID userid, UUID groupId, OrderItemDTO order, Item item) {
         return new OrderedItem(UUID.randomUUID(), groupId, userid, order.getId(), order.getAmount()
                 , item.getAmount() >= 1 ? LocalDate.now().plusDays(1) : LocalDate.now().plusDays(7)
-                , order.getAmount() * item.getPrice(),LocalDate.now());
+                , order.getAmount() * item.getPrice(), LocalDate.now());
     }
 
-    private boolean areItemsOk(Collection<OrderItemDTO> orderList){
+    private boolean areItemsOk(Collection<OrderItemDTO> orderList) {
         return orderList.stream().filter(c -> c.getId() == null || c.getAmount() < 1).count() == 0;
     }
 
-    public Map<UUID, List<OrderedItem>> getOrderHistory(UUID userId){
+    public Map<UUID, List<OrderedItem>> getOrderHistory(UUID userId) {
         return orderRepository.getAllOrders().stream().filter(c -> c.getMemberId().equals(userId)).collect(groupingBy(OrderedItem::getGroupId));
     }
 
-    public UUID reOrder(UUID groupId,UUID userId){
-        if(!isReOrderIdOk(groupId,userId)){
+    public UUID reOrder(UUID groupId, UUID userId) {
+        if (!isReOrderIdOk(groupId, userId)) {
             logger.warn("A user did try to reorder a order that was not in the database. groupid: " + groupId);
             throw new OrderMissingField("There was nothing found to reorder, pls try again.");
         }
         var oldOrder = getOrdersByGroupId(groupId);
         var oldOrderMaped = oldOrder.stream().map(c -> new OrderItemDTO().setId(c.getItemId()).setAmount(c.getAmount()).setShippingdate(c.getShippingDate())).collect(Collectors.toList());
-        return saveOrders(oldOrderMaped,userId);
+        return saveOrders(oldOrderMaped, userId);
     }
 
-    private boolean isReOrderIdOk(UUID groupId,UUID userId){
+    private boolean isReOrderIdOk(UUID groupId, UUID userId) {
         return orderRepository.getAllOrders().stream().filter(c -> c.getGroupId().equals(groupId) && c.getMemberId().equals(userId)).count() > 0;
     }
 }
