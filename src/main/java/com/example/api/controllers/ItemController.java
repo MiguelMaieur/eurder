@@ -2,6 +2,7 @@ package com.example.api.controllers;
 
 import com.example.api.dto.item.CreateItemDTO;
 import com.example.api.dto.item.ItemDTO;
+import com.example.api.dto.item.UpdateItemDTO;
 import com.example.api.mappers.ItemMapper;
 import com.example.infrastructure.exceptions.Unauthorized;
 import com.example.service.ItemService;
@@ -33,7 +34,7 @@ public class ItemController {
     @ResponseStatus(HttpStatus.CREATED)
     public ItemDTO addItem(@RequestBody CreateItemDTO createUserDTO,@RequestHeader("Authorization") UUID adminId){
         if(!userService.isUserInRoleAdmin(adminId)){
-            logger.warn("Someone tried to register a item but did not have admin id; id used : " + adminId);
+            logger.warn("Someone tried to register an item but did not have admin id; id used : " + adminId);
             throw new Unauthorized("You are not authorized to add a item.");
         }
         return itemMapper.itemToItemDTO(itemService.addItem(itemMapper.CreateItemDTOToItem(createUserDTO)));
@@ -43,5 +44,15 @@ public class ItemController {
     @ResponseStatus(HttpStatus.OK)
     public Collection<ItemDTO> getAllItems(){
         return itemMapper.itemListToItemDTOList(itemService.getAllItems());
+    }
+
+    @PatchMapping(consumes = "application/json",produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public ItemDTO updateItem(@RequestBody UpdateItemDTO updateItemDTO, @RequestHeader("Authorization") UUID adminId){
+        if(!userService.isUserInRoleAdmin(adminId)){
+            logger.warn("Someone tried to update an item but did not have a admin id; id used : " + adminId);
+            throw new Unauthorized("You are not authorized to update a item.");
+        }
+        return itemMapper.itemToItemDTO(itemService.UpdateItem(itemMapper.updateItemDTOToItem(updateItemDTO)));
     }
 }

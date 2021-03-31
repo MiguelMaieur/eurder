@@ -9,9 +9,9 @@ import java.util.UUID;
 public class Item {
     private static final Logger logger = LoggerFactory.getLogger(Item.class);
     private final UUID id;
-    private final String name;
-    private final String description;
-    private final Double price;
+    private String name;
+    private String description;
+    private Double price;
     private int amount;
 
     public Item(String name, String description, Double price, int amount) {
@@ -76,5 +76,17 @@ public class Item {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

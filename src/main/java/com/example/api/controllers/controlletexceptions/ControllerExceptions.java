@@ -44,4 +44,9 @@ public class ControllerExceptions extends ResponseEntityExceptionHandler {
     public void OrderMissingField(OrderMissingField orderMissingField, HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, orderMissingField.getMessage());
     }
+
+    @ExceptionHandler(ItemDontExists.class)
+    public void ItemDontExists(ItemDontExists itemDontExists, HttpServletResponse httpServletResponse) throws IOException {
+        httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, itemDontExists.getMessage());
+    }
 }

@@ -30,4 +30,12 @@ public class ItemRepository {
         logger.info("Item was added to the database with id :" + item.getId());
         return item;
     }
+
+    public Item UpDateItem(Item item){
+        Item itemToUpdate = itemList.stream().filter(c -> c.getName().equals(item.getName())).findFirst().orElse(null);
+        itemToUpdate.setDescription(item.getDescription());
+        itemToUpdate.setAmount(item.getAmount());
+        itemToUpdate.setPrice(item.getPrice());
+        return itemToUpdate;
+    }
 }
