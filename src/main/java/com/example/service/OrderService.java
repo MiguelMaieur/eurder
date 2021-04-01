@@ -91,4 +91,8 @@ public class OrderService {
     private boolean isReOrderIdOk(UUID groupId, UUID userId) {
         return orderRepository.getAllOrders().stream().filter(c -> c.getGroupId().equals(groupId) && c.getMemberId().equals(userId)).count() > 0;
     }
+
+    public Map<UUID,List<OrderedItem>> getShippingOrdersOfToday(){
+        return orderRepository.getAllOrders().stream().filter(c -> c.getShippingDate().isEqual(LocalDate.now())).collect(groupingBy(OrderedItem::getGroupId));
+    }
 }
