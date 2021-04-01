@@ -6,8 +6,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.UUID;
 
-public class Item {
+public class Item implements Comparable<Item>{
     private static final Logger logger = LoggerFactory.getLogger(Item.class);
+    public static final int LOWSTOCK = 5;
+    public static final int HIGHSTOCK = 10;
     private final UUID id;
     private String name;
     private String description;
@@ -88,5 +90,26 @@ public class Item {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public OverViewUrgency getItemUrgency(){
+        return getTheUrgency();
+    }
+
+    private OverViewUrgency getTheUrgency() {
+        if(amount >= HIGHSTOCK){
+            return OverViewUrgency.STOCK_HIGH;
+        }
+        else if(amount >= LOWSTOCK){
+            return OverViewUrgency.STOCK_MEDIUM;
+        }
+        return OverViewUrgency.STOCK_LOW;
+    }
+
+
+    @Override
+    public int compareTo(Item o) {
+        if(o.getItemUrgency() == getItemUrgency())return 0;
+        return getItemUrgency().compareTo(o.getItemUrgency());
     }
 }

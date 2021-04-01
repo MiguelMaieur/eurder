@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -54,5 +55,15 @@ public class ItemController {
             throw new Unauthorized("You are not authorized to update a item.");
         }
         return itemMapper.itemToItemDTO(itemService.UpdateItem(itemMapper.updateItemDTOToItem(updateItemDTO)));
+    }
+
+    @PostMapping(produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<ItemDTO> itemOverview(@RequestParam Optional<String> indicator, @RequestHeader("Authorization") UUID adminId) {
+        if (!userService.isUserInRoleAdmin(adminId)) {
+            logger.warn("Someone tried to see the item overview but did not have admin id; id used : " + adminId);
+            throw new Unauthorized("You are not authorized see this list.");
+        }
+        return itemMapper.itemListToItemDTOList(itemService.getItemsByUrgency(indicator.orElseGet(() -> "")));
     }
 }
