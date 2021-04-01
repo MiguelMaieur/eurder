@@ -5,7 +5,7 @@ public enum OverViewUrgency {
     STOCK_MEDIUM(2),
     STOCK_HIGH(3);
 
-    private int urgency;
+    private final int urgency;
     OverViewUrgency(int urgency) {
         this.urgency = urgency;
     }

@@ -106,7 +106,6 @@ public class Item implements Comparable<Item>{
         return OverViewUrgency.STOCK_LOW;
     }
 
-
     @Override
     public int compareTo(Item o) {
         if(o.getItemUrgency() == getItemUrgency())return 0;
